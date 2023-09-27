@@ -1,7 +1,7 @@
 import { defineConfig } from 'tsup';
 
 export default defineConfig({
-    name: 'tinycss',
+    name: 'uber.css',
     entry: ['./src/index.ts'],
     target: 'es2015',
     dts: true,
