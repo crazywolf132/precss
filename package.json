@@ -1,6 +1,6 @@
 {
   "name": "uber.css",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A version of postcss without the node devDependencies. Super lights",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
