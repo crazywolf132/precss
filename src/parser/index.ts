@@ -173,8 +173,6 @@ export default class Parser {
             }
         }
 
-        delete node.parent;
-
         if (node.nodes && node.nodes.length >= 1) {
             node.nodes = node.nodes.map((child) => this.cleanup(child));
         }
