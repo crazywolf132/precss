@@ -7,8 +7,8 @@ export default defineConfig({
     dts: true,
     sourcemap: true,
     clean: true,
-    minify: true,
-    minifyIdentifiers: true,
-    minifySyntax: true,
-    minifyWhitespace: true
+    // minify: true,
+    // minifyIdentifiers: true,
+    // minifySyntax: true,
+    // minifyWhitespace: true
 })

@@ -1,4 +1,4 @@
-import { describe, test, it, expect, beforeEach } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 
 import Lexer from "../src/lexer";
 import Parser from "../src/parser";
@@ -182,5 +182,11 @@ describe('Parser', () => {
         it('should throw an error for missing semicolon in declarations', () => {
             expect(() => parseCSS('body { color: red }')).toThrow('Expected a semicolon');
         });
+
+        it('should handle animation definitions', () => {
+            const result = parseCSS('animation: fade-in 1s ease-in;');
+            expect(result.nodes[0].type).toBe('decl');
+            expect(result.nodes[0].value).toBe('fade-in 1s ease-in')
+        })
     });
 });

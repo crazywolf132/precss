@@ -9,7 +9,7 @@ export default class Parser {
     private tokens: Token[];
 
     constructor(private lexer: Lexer) {
-        this.tokens = lexer.tokens.filter((token) => token[0] !== 'space');
+        this.tokens = lexer.tokens;
         this.current = this.root;
     }
 
@@ -17,7 +17,8 @@ export default class Parser {
         let token: Token;
         while (!this.atEnd()) {
             token = this.tokens[++this.index]
-            // console.log("Token", token)
+            if (token[0] === 'space') continue;
+
             switch (token[0]) {
                 case 'comment':
                     this.comment();
@@ -38,9 +39,6 @@ export default class Parser {
                 default:
                     this.other();
                     break;
-                // case 'at-word':
-                //     this.atrule(token);
-                //     break;
             }
         }
 
@@ -104,7 +102,7 @@ export default class Parser {
 
         // We can assume we are at the end of the loop, and have encountered a block or a semicolon
         // We will now add the params as a string to the node and exit.
-        node.params = params.map((token) => token[1]).join(' ');
+        node.params = params.map((token) => token[1]).join('').trim();
         if (this.nextOfType(';')) {
             this.index++; // Just going to consume it... as nothing else will
             node.raws.semicolon = true
@@ -133,14 +131,14 @@ export default class Parser {
             // This is a declaration
             node.type = 'decl';
             node.prop = tokens[0][1];
-            node.value = tokens.slice(2).map((token) => token[1]).join('');
+            node.value = tokens.slice(2).map((token) => token[1]).join('').trim();
             if (!this.ofType(';')) {
                 throw new Error('Expected a semicolon')
             }
         } else if (this.ofType('{')) {
             // This is a new rule definition
             node.type = 'rule';
-            node.selector = tokens.map((token) => token[1]).join('');
+            node.selector = tokens.map((token) => token[1]).join('').trim();
             this.current = node;
         }
     }
